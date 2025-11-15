@@ -1,0 +1,25 @@
+# Top-level Python dependencies for the Hand_glove Proj
+# NOTE: Install PyTorch separately if you need a specific CUDA build. Example (Windows + CUDA 11.8):
+#   pip install torch --index-url https://download.pytorch.org/whl/cu118
+
+ultralytics>=8.0.0
+torch
+torchvision
+opencv-python
+numpy
+fastapi
+uvicorn[standard]
+jinja2
+python-multipart
+Pillow
+albumentations
+matplotlib
+scikit-image
+tqdm
+lpips
+requests
+
+# Optional / dev (uncomment to install)
+# streamlit
+# black
+# pytest
