@@ -225,44 +225,11 @@ class GloveDefectDetectionSystem:
             'defect_mask': f"defect_mask_{os.path.basename(image_path)}"
         }
 
-    
-    def show_menu(self):
-        print("\n🎯 Medical Glove Defect Detection System")
-        print("1. Train SRGAN (Image Enhancement)")
-        print("2. Train YOLO (Defect Detection)") 
-        print("3. Run Web Interface")
-        print("4. Exit")
-        
-        choice = input("Enter your choice (1-4): ").strip()
-        return choice
-
 def main():
     system = GloveDefectDetectionSystem()
-    
-    while True:
-        choice = system.show_menu()
-        
-        if choice == '1':
-            print("Starting SRGAN training...")
-            # You can add SRGAN training here if needed
-            print("SRGAN training not implemented yet.")
-        
-        elif choice == '2':
-            print("Starting YOLO training...")
-            # You can add YOLO training here if needed  
-            print("YOLO training not implemented in this menu. Use train_yolo.py directly.")
-        
-        elif choice == '3':
-            print("Starting web interface...")
-            print("Open http://127.0.0.1:8000 in your browser")
-            os.system('cd web_interface && python app.py')
-        
-        elif choice == '4':
-            print("Goodbye!")
-            break
-        
-        else:
-            print("Invalid choice!")
+    print("🚀 Launching web interface...")
+    print("🌐 Open http://127.0.0.1:8000 in your browser")
+    os.system('cd web_interface && python app.py')
 
 if __name__ == "__main__":
     main()
