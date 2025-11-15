@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+glove_env/
+venv/
+env/
+ENV/
+
+# VSCode / JetBrains
+.vscode/
+.idea/
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Results, outputs and temporary files
+results/
+web_interface/uploads/
+
+# Dataset (keep only small samples in repo if needed)
+data/
+
+# Model weights and checkpoints (do not commit large binaries)
+# If you want to store them in Git, consider using Git LFS instead.
+*.pt
+*.pth
+models/**/weights/
+models/**/checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Python testing
+.pytest_cache/
+
+# Misc
+*.bak
+*.tmp
+glove_env
+__pycache__/
+*.pyc
+.env
+node_modules/
+dist/
+build/
+.DS_Store

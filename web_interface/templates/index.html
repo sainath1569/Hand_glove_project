@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Glove Defect Detection System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="text-3xl">🩺</div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Medical Glove Defect Detection</h1>
+                        <p class="text-blue-100">AI-Powered Quality Control System</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="#upload" class="hover:text-blue-200 font-medium">Detect Defects</a></li>
+                        <li><a href="#results" class="hover:text-blue-200 font-medium">Results</a></li>
+                        <li><a href="#about" class="hover:text-blue-200 font-medium">System Info</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Upload Section -->
+        <section id="upload" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Upload Glove Image</h2>
+                <p class="text-gray-600 mb-6">Upload an image of a medical glove to detect defects using our AI system.</p>
+                
+                <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-blue-400 transition-colors mb-4">
+                    <div class="text-4xl mb-4">📁</div>
+                    <h3 class="text-xl font-semibold mb-2">Drag & Drop or Click to Upload</h3>
+                    <p class="text-gray-500">Supported formats: JPG, PNG (Max 10MB)</p>
+                    <input type="file" id="fileInput" class="hidden" accept="image/*">
+                </div>
+                
+                <button id="processBtn" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    Process Image
+                </button>
+                
+                <div id="loadingIndicator" class="hidden mt-6 text-center">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                    <p class="mt-2 text-gray-600">Processing image and detecting defects...</p>
+                    <p class="text-sm text-gray-500">This may take a few moments</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="hidden mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Detection Results</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="image-container">
+                        <img id="originalImage" src="" alt="Original Image" class="w-[600px] h-[600px] object-contain mx-auto rounded-lg shadow">
+                        <p class="text-center mt-2 font-medium text-gray-500">Original Image</p>
+                    </div>
+                    <div class="image-container">
+                        <img id="processedImage" src="" alt="Processed Image" class="w-[600px] h-[600px] object-contain mx-auto rounded-lg shadow">
+                        <p class="text-center mt-2 font-medium text-gray-500">Enhanced & Analyzed</p>
+                    </div>
+                </div>
+                
+                <!-- Metrics -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg text-center">
+                        <div id="defectCount" class="text-3xl font-bold text-blue-600">0</div>
+                        <div class="text-sm text-blue-800">Defects Found</div>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                        <div id="confidenceScore" class="text-3xl font-bold text-green-600">0%</div>
+                        <div class="text-sm text-green-800">Confidence</div>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg text-center">
+                        <div id="precisionScore" class="text-3xl font-bold text-purple-600">0%</div>
+                        <div class="text-sm text-purple-800">Precision</div>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-lg text-center">
+                        <div id="recallScore" class="text-3xl font-bold text-orange-600">0%</div>
+                        <div class="text-sm text-orange-800">Recall</div>
+                    </div>
+                </div>
+                
+                <!-- Defects List -->
+                <div id="defectsList" class="mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Detected Defects</h3>
+                    <div id="defectsContainer" class="space-y-3">
+                        <!-- Defects will be populated here -->
+                    </div>
+                </div>
+                
+                <button id="newAnalysisBtn" class="bg-gray-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-gray-700 transition-colors">
+                    Analyze Another Image
+                </button>
+            </div>
+        </section>
+
+        <!-- System Info Section -->
+        <section id="about" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">System Information</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-4">System Architecture</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                            <li>Upload low-resolution glove image</li>
+                            <li>SRGAN enhances image resolution (4x)</li>
+                            <li>YOLOv8 detects and classifies defects</li>
+                            <li>Results displayed with confidence metrics</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-4">Technology Stack</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">PyTorch</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">FastAPI</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">YOLOv8</span>
+                            <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">SRGAN</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">OpenCV</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>Medical Glove Defect Detection System</p>
+            <p class="text-gray-400">Optimized for GPU-Enabled Systems</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
